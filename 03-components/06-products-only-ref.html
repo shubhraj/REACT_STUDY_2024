@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Document Title]</title>
+    <script src="babel.min.js"></script>
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <style>
+        #root > h1 {
+            color : red;
+        }
+    </style>
+    <script type="text/babel">
+        const Products = () => {
+            const [productNames, setProductNames] = React.useState([]);
+            const txtNewProductNameRef = React.useRef();
+
+            const onBtnAddClick = () => {
+                const newProductName = txtNewProductNameRef.current.value;
+                setProductNames([...productNames, newProductName])
+                txtNewProductNameRef.current.value = ''; // DO NOT DO THIS
+                txtNewProductNameRef.current.focus();
+            };
+            const productItems = productNames.map((productName, idx) => (<li key={idx}>{productName}</li>))
+            return (
+                <>
+                    {/* <React.Fragment> */}
+                    <h1>Products</h1>
+                    <div>
+                        <label htmlFor="">Product Name:</label>
+                        <input type="text" 
+                            ref={txtNewProductNameRef}
+                        />
+                        <button onClick={onBtnAddClick}>Add</button>
+                    </div>
+                    <ul>
+                        {productItems}
+                    </ul>
+                    {/* </React.Fragment> */}
+                </>
+                
+            )
+        }
+        var root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<Products/>)
+    </script>
+</head>
+<body>
+    <div id="root">
+        
+    </div>
+</body>
+</html>
+   
